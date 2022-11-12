@@ -5,6 +5,12 @@
     "cpu": 256,
     "memory": 512,
     "essential": true,
+    "environment": [
+      {
+        "name": "AUTHOR",
+        "value": "Kieran"
+      }
+    ],
     "portMappings": [
       {
         "containerPort": 8888,
