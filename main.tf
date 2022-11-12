@@ -21,3 +21,12 @@ provider "aws" {
 module "vpc" {
   source = "./modules/vpc"
 }
+
+module "alb" {
+  source = "./modules/alb"
+  load_balancer_sg = module.vpc.load_balancer_sg
+  load_balancer_subnet_a = module.vpc.load_balancer_subnet_a
+  load_balancer_subnet_b = module.vpc.load_balancer_subnet_b
+  load_balancer_subnet_c = module.vpc.load_balancer_subnet_c
+  vpc = module.vpc.vpc
+}

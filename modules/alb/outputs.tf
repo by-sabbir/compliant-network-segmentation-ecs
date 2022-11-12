@@ -1,5 +1,5 @@
 output "elb" {
-  value = aws_lb.alb
+  value = aws_lb.elb
 }
 
 output "ecs_target_group" {
