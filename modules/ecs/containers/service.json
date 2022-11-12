@@ -1,21 +1,22 @@
 [
   {
-    "name": "bk-app",
-    "image": "bysabbir/bk-ecs:latest",
-    "cpu": 256,
-    "memory": 512,
-    "essential": true,
-    "environment": [
-      {
-        "name": "john",
-        "value": "foo"
-      }
-    ],
     "portMappings": [
       {
-        "containerPort": 8888,
-        "hostPort": 80
+        "hostPort": 80,
+        "protocol": "tcp",
+        "containerPort": 80
       }
-    ]
+    ],
+    "cpu": 512,
+    "environment": [
+      {
+        "name": "test",
+        "value": "sample"
+      }
+    ],
+    "memory": 1024,
+    "image": "bysabbir/bk-ecs:latest",
+    "essential": true,
+    "name": "bk-app"
   }
 ]

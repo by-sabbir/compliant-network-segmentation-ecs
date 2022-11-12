@@ -1,5 +1,5 @@
 resource "aws_ecs_cluster" "task_1" {
-  name = "ecs-task-1"
+  name = "ecs-cluster"
   setting {
     name = "containerInsights"
     value = "enabled"
@@ -34,21 +34,7 @@ resource "aws_ecs_task_definition" "task_1" {
   cpu = "512"
   execution_role_arn = var.ecs_role.arn
   task_role_arn = var.ecs_role.arn
-  volume {
-    name = "service-storage"
-
-    efs_volume_configuration {
-      file_system_id          = aws_efs_file_system.fs.id
-      root_directory          = "/opt/data"
-      transit_encryption      = "ENABLED"
-      transit_encryption_port = 2999
-
-      authorization_config {
-        access_point_id = aws_efs_access_point.ap.id
-        iam             = "ENABLED"
-      }
-    }
-  }
+  
   tags = {
     Name = "task-definition"
     Project = "task-1"
@@ -64,8 +50,7 @@ resource "aws_ecs_service" "task_1" {
   launch_type = "FARGATE"
 
   lifecycle {
-    ignore_changes = [
-      desired_count]
+    ignore_changes = [desired_count]
   }
 
   network_configuration {
@@ -80,19 +65,8 @@ resource "aws_ecs_service" "task_1" {
 
   load_balancer {
     target_group_arn = var.ecs_target_group.arn
-    container_name = "site"
+    container_name = "bk-app"
     container_port = 80
   }
 }
 
-resource "aws_efs_file_system" "fs" {
-  creation_token = "ecs-efs-bk-app"
-
-  lifecycle_policy {
-    transition_to_ia = "AFTER_30_DAYS"
-  }
-}
-
-resource "aws_efs_access_point" "ap" {
-  file_system_id = aws_efs_file_system.fs.id
-}

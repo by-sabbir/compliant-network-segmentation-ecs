@@ -1,5 +1,5 @@
 resource "aws_lb" "elb" {
-  name               = "esc-alb"
+  name               = "ecs-alb"
   internal           = false
   load_balancer_type = "application"
   
@@ -12,7 +12,7 @@ resource "aws_lb" "elb" {
   ]
 
   tags = {
-    Name = "esc-alb"
+    Name = "ecs-alb"
     Project = "task-1"
     Billing = "task-1"
   }
@@ -27,9 +27,9 @@ resource "aws_lb_target_group" "ecs" {
 
   health_check {
     enabled             = true
-    interval            = 300
-    path                = "/healthcheck"
-    timeout             = 30
+    interval            = 30
+    path                = "/"
+    timeout             = 10
     matcher             = "200"
     healthy_threshold   = 5
     unhealthy_threshold = 5
