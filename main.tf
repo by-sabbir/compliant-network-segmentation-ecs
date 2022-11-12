@@ -45,3 +45,9 @@ module "ecs" {
   ecs_subnet_c = module.vpc.ecs_subnet_c
   ecs_target_group = module.elb.ecs_target_group
 }
+
+module "auto_scaling" {
+  source = "./modules/autoscaling"
+  ecs_cluster = module.ecs.ecs_cluster
+  ecs_service = module.ecs.ecs_service
+}
