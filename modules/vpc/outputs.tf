@@ -1,27 +1,35 @@
-
-output "db_subnets" {
-  value = module.vpc.database_subnets
-}
-output "private_subnets" {
-  value = module.vpc.private_subnets
+output "vpc" {
+  value = aws_vpc.vpc
 }
 
-output "public_subnets" {
-  value = module.vpc.public_subnets
+output "load_balancer_subnet_a" {
+  value = aws_subnet.elb_a
 }
 
-output "vpc_id" {
-  value = module.vpc.vpc_id
+output "load_balancer_subnet_b" {
+  value = aws_subnet.elb_b
 }
 
-output "vpc_public_ip" {
-  value = module.vpc.nat_public_ips
+output "load_balancer_subnet_c" {
+  value = aws_subnet.elb_c
 }
 
-output "vpc_arn" {
-  value = module.vpc.vpc_arn
+output "ecs_subnet_a" {
+  value = aws_subnet.ecs_a
 }
 
-output "vpc_azs" {
-  value = module.vpc.azs
+output "ecs_subnet_b" {
+  value = aws_subnet.ecs_b
+}
+
+output "ecs_subnet_c" {
+  value = aws_subnet.ecs_c
+}
+
+output "load_balancer_sg" {
+  value = aws_security_group.load_balancer
+}
+
+output "ecs_sg" {
+  value = aws_security_group.ecs_task
 }

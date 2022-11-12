@@ -9,12 +9,15 @@ terraform {
     profile = "personal"
     bucket = "tfstate-stored"
     region = "ap-southeast-1"
-    key = "bk-app/terraform.tfstate"
+    key = "bk-app/bk-app-iac.tfstate"
   }
 }
 
 provider "aws" {
   profile = "personal"
-  region = "ap-southeast-1"
+  region = var.region
 }
 
+module "vpc" {
+  source = "./modules/vpc"
+}
