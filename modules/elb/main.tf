@@ -1,10 +1,9 @@
 resource "aws_lb" "elb" {
-  name               = "ecs-alb"
+  name               = "esc-alb"
   internal           = false
   load_balancer_type = "application"
-
-  security_groups    = [
-    var.load_balancer_sg.id]
+  
+  security_groups    = [ var.load_balancer_sg.id ]
   
   subnets            = [
     var.load_balancer_subnet_a.id,
@@ -13,14 +12,14 @@ resource "aws_lb" "elb" {
   ]
 
   tags = {
-    Name = "ecs-alb"
+    Name = "esc-alb"
     Project = "task-1"
     Billing = "task-1"
-  } 
+  }
 }
 
 resource "aws_lb_target_group" "ecs" {
-  name     = "ecs"
+  name     = "ecs-tg"
   port     = 80
   protocol = "HTTP"
   vpc_id   = var.vpc.id
@@ -30,14 +29,14 @@ resource "aws_lb_target_group" "ecs" {
     enabled             = true
     interval            = 300
     path                = "/healthcheck"
-    timeout             = 60
+    timeout             = 30
     matcher             = "200"
     healthy_threshold   = 5
     unhealthy_threshold = 5
   }
 
   tags = {
-    Name = "alb-tg"
+    Name = "ecs-tg"
     Project = "task-1"
     Billing = "task-1"
   }

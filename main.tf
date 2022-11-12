@@ -22,11 +22,16 @@ module "vpc" {
   source = "./modules/vpc"
 }
 
-module "alb" {
-  source = "./modules/alb"
+module "elb" {
+  source = "./modules/elb"
   load_balancer_sg = module.vpc.load_balancer_sg
   load_balancer_subnet_a = module.vpc.load_balancer_subnet_a
   load_balancer_subnet_b = module.vpc.load_balancer_subnet_b
   load_balancer_subnet_c = module.vpc.load_balancer_subnet_c
   vpc = module.vpc.vpc
+}
+
+module "iam" {
+  source = "./modules/iam"
+  elb = module.elb.elb
 }
