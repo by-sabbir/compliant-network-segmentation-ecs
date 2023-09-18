@@ -1,4 +1,4 @@
-# Task 1 IAC
+# ECS w\ proper network segmentation and ASG
 
 Secure and reliable deployment demo
 
